@@ -246,6 +246,12 @@
       display:none;
       z-index: 999;
     }
+    /* When opened on mobile, the menu is portaled to <body> and positioned with JS */
+    .chip--dropdown .chip__menu.is-portal{
+      position: fixed !important;
+      top: auto;
+      left: auto;
+    }
     .chip--dropdown .chip__menu.is-open{ display:block; }
     .chip--dropdown .chip__item{
       display:block;

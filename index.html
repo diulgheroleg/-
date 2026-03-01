@@ -196,17 +196,74 @@
     var menu = chip.querySelector('.chip__menu');
     if(!main || !toggle || !menu) return;
 
+    // On mobile (especially Telegram iOS WebView) the chips row is scrollable.
+    // Absolute-positioned dropdowns inside an overflow container get clipped and
+    // taps may be treated as scroll gestures. We solve both by:
+    // 1) "portaling" the menu to <body> with position:fixed
+    // 2) using a tap-detection handler (touchstart/touchend with move threshold)
+
+    var portalPlaceholder = document.createComment('android-menu-anchor');
+    var portalActive = false;
+
+    function attachMenuToBody(){
+      if (portalActive) return;
+      chip.insertBefore(portalPlaceholder, menu);
+      document.body.appendChild(menu);
+      menu.classList.add('is-portal');
+      portalActive = true;
+    }
+
+    function restoreMenu(){
+      if (!portalActive) return;
+      if (portalPlaceholder.parentNode) {
+        portalPlaceholder.parentNode.insertBefore(menu, portalPlaceholder);
+        portalPlaceholder.parentNode.removeChild(portalPlaceholder);
+      }
+      menu.classList.remove('is-portal');
+      menu.style.top = '';
+      menu.style.left = '';
+      menu.style.right = '';
+      menu.style.bottom = '';
+      portalActive = false;
+    }
+
+    function positionMenuPreferAbove(){
+      var rect = chip.getBoundingClientRect();
+      var margin = 10;
+      var mw = menu.offsetWidth;
+      var mh = menu.offsetHeight;
+      var vw = window.innerWidth;
+      var vh = window.innerHeight;
+
+      var left = Math.min(Math.max(rect.left, 8), vw - mw - 8);
+      var topAbove = rect.top - mh - margin;
+      var topBelow = rect.bottom + margin;
+      var top = (topAbove >= 8) ? topAbove : topBelow;
+      top = Math.min(Math.max(top, 8), vh - mh - 8);
+
+      menu.style.position = 'fixed';
+      menu.style.left = left + 'px';
+      menu.style.top = top + 'px';
+      menu.style.zIndex = 99999;
+    }
+
     function open(){
+      attachMenuToBody();
       chip.classList.add('is-open');
       menu.classList.add('is-open');
       toggle.setAttribute('aria-expanded','true');
       menu.setAttribute('aria-hidden','false');
+
+      requestAnimationFrame(function(){
+        positionMenuPreferAbove();
+      });
     }
     function close(){
       chip.classList.remove('is-open');
       menu.classList.remove('is-open');
       toggle.setAttribute('aria-expanded','false');
       menu.setAttribute('aria-hidden','true');
+      restoreMenu();
     }
     function isOpen(){
       return menu.classList.contains('is-open');
@@ -222,35 +279,49 @@
       if(isOpen()) close(); else open();
     }
 
-    function bindTrigger(el){
+    function bindTap(el){
       if(!el) return;
-      // click
+      var sx=0, sy=0, moved=false;
+      el.addEventListener('touchstart', function(e){
+        if(!e.touches || !e.touches[0]) return;
+        sx = e.touches[0].clientX;
+        sy = e.touches[0].clientY;
+        moved = false;
+      }, { passive: true });
+      el.addEventListener('touchmove', function(e){
+        if(!e.touches || !e.touches[0]) return;
+        var dx = Math.abs(e.touches[0].clientX - sx);
+        var dy = Math.abs(e.touches[0].clientY - sy);
+        if(dx > 10 || dy > 10) moved = true;
+      }, { passive: true });
+      el.addEventListener('touchend', function(e){
+        if(moved) return;
+        onTriggerClick(e);
+      }, { passive: false });
+
       el.addEventListener('click', onTriggerClick, { passive: false });
-      // iOS/Android webviews fallback
-      el.addEventListener('touchend', onTriggerClick, { passive: false });
       el.addEventListener('pointerup', onTriggerClick, { passive: false });
     }
 
-    bindTrigger(main);
-    bindTrigger(toggle);
+    bindTap(main);
+    bindTap(toggle);
 
-    // кликабельна вся область кнопки
-    chip.addEventListener('click', function(e){
-      if(e.target.closest('.chip__menu') || e.target.closest('.chip__item')) return;
-      onTriggerClick(e);
-    });
-    chip.addEventListener('touchend', function(e){
-      if(e.target.closest('.chip__menu') || e.target.closest('.chip__item')) return;
-      onTriggerClick(e);
-    }, { passive: false });
-    chip.addEventListener('pointerup', function(e){
-      if(e.target.closest('.chip__menu') || e.target.closest('.chip__item')) return;
-      onTriggerClick(e);
-    }, { passive: false });
+    // кликабельна вся область кнопки (включая пустоты)
+    bindTap(chip);
 
     document.addEventListener('click', function(e){
-      if(!chip.contains(e.target)) close();
+      if(portalActive) {
+        if(!chip.contains(e.target) && !menu.contains(e.target)) close();
+      } else {
+        if(!chip.contains(e.target)) close();
+      }
     });
+    window.addEventListener('resize', function(){
+      if(isOpen()) positionMenuPreferAbove();
+    });
+    window.addEventListener('scroll', function(){
+      if(isOpen()) positionMenuPreferAbove();
+    }, { passive: true });
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape') close();
     });
