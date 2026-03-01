@@ -745,6 +745,26 @@
     .issue__price { color: var(--accent-soft); font-size: 13px; }
     .issue__note  { margin-top: 4px; color: rgba(255,255,255,0.7); font-size: 12px; }
 
+    /* "Не нашли устройство?" callout (models pages) */
+    .find-device{
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .find-device__title{ font-weight: 800; font-size: 18px; }
+    .find-device__sub{ margin-top: 6px; color: rgba(255,255,255,0.72); font-size: 13px; max-width: 620px; }
+
+    @media (max-width: 640px){
+      .find-device{ flex-direction: column; align-items: stretch; }
+      .find-device .btn{ width: 100%; }
+    }
+
     /* FOOTER */
 
     .footer {
@@ -868,6 +888,18 @@
     @media (max-width: 640px) {
       .header__inner { padding: 10px 0; }
       .logo { font-size: 18px; }
+  /* Make header buttons reachable on mobile */
+  .header__inner { flex-wrap: wrap; justify-content: center; }
+  .header__actions {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .header__actions .btn{
+    flex: 1 1 160px;
+    padding: 10px 14px;
+  }
       .hero { padding-top: 18px; }
       .hero__image { border-radius: 26px; padding: 24px 18px; }
       .hero__phone-wrap { inset: 16px 30px; gap: 18px; }

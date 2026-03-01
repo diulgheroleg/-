@@ -20,7 +20,7 @@
 <div class="logo__text">ReBoot<span>Fix</span></div>
 </a>
 <div class="header__actions">
-<a class="btn btn--primary" href="index.html#order">Связаться / консультация</a>
+<a class="btn btn--primary" href="index.html#contacts">Консультация</a>
 <a class="btn btn--primary" href="index.html">Вернуться назад</a>
 </div>
 </div>
@@ -36,7 +36,16 @@
     <h2 class="models-section-title">Apple iPad</h2>
     <div class="cards-grid" id="modelsGrid"></div>
 
+    <section class="find-device">
+      <div class="find-device__text">
+        <div class="find-device__title">Не нашли свой планшет?</div>
+        <div class="find-device__sub">Напишите в Telegram — уточним модель и проблему и подскажем ориентировочную стоимость.</div>
+      </div>
+      <a class="btn btn--primary" href="https://t.me/ReBootFix" target="_blank" rel="noopener">Узнать точную стоимость</a>
+    </section>
+
 <div class="models-actions" style="margin-top:18px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+  <a class="btn btn--primary" href="index.html#contacts">Консультация</a>
   <a class="btn btn--primary" href="index.html">Вернуться назад</a>
 </div>
   </div>
@@ -46,7 +55,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function(){
     if(window.renderModelCards && window.getBrandModels){
-      renderModelCards('modelsGrid', getBrandModels('ipad'), {previewLimit: 3});
+      renderModelCards('modelsGrid', getBrandModels('ipad'), {previewLimit: 3, maxModels: 20});
     }
 
   });

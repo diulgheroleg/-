@@ -31,8 +31,12 @@
     if(!el) return;
     const options = opts || {};
     const limit = options.previewLimit ?? 3;
+    const maxModels = options.maxModels ?? null; // show only N models (e.g., 15–20 popular)
 
-    const sorted = [...(models||[])].sort(sortModelsDesc);
+    let sorted = [...(models||[])].sort(sortModelsDesc);
+    if(Number.isFinite(maxModels) && maxModels > 0){
+      sorted = sorted.slice(0, maxModels);
+    }
 
     el.innerHTML = sorted.map(m=>{
       const preview = (m.services||[]).slice(0, limit);
