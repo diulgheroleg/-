@@ -215,19 +215,38 @@
     function onTriggerClick(e){
       if(e.target && e.target.closest && (e.target.closest('.chip__item') || e.target.closest('.chip__menu'))) return;
       // вместо перехода по ссылке — открываем список брендов
-      e.preventDefault();
-      e.stopPropagation();
+      // На мобильных Safari/WebView иногда click не срабатывает из-за горизонтального скролла nav,
+      // поэтому обрабатываем и touchend/pointerup. preventDefault нужен, чтобы <a> не уводил на android.html.
+      if (e && typeof e.preventDefault === 'function') e.preventDefault();
+      if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
       if(isOpen()) close(); else open();
     }
 
-    main.addEventListener('click', onTriggerClick);
-    toggle.addEventListener('click', onTriggerClick);
+    function bindTrigger(el){
+      if(!el) return;
+      // click
+      el.addEventListener('click', onTriggerClick, { passive: false });
+      // iOS/Android webviews fallback
+      el.addEventListener('touchend', onTriggerClick, { passive: false });
+      el.addEventListener('pointerup', onTriggerClick, { passive: false });
+    }
+
+    bindTrigger(main);
+    bindTrigger(toggle);
 
     // кликабельна вся область кнопки
     chip.addEventListener('click', function(e){
       if(e.target.closest('.chip__menu') || e.target.closest('.chip__item')) return;
       onTriggerClick(e);
     });
+    chip.addEventListener('touchend', function(e){
+      if(e.target.closest('.chip__menu') || e.target.closest('.chip__item')) return;
+      onTriggerClick(e);
+    }, { passive: false });
+    chip.addEventListener('pointerup', function(e){
+      if(e.target.closest('.chip__menu') || e.target.closest('.chip__item')) return;
+      onTriggerClick(e);
+    }, { passive: false });
 
     document.addEventListener('click', function(e){
       if(!chip.contains(e.target)) close();

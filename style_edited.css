@@ -206,7 +206,11 @@
       transition: all 0.18s ease-out;
       text-decoration: none;
       box-shadow: none;
+      /* Improve tap reliability in mobile webviews (especially inside horizontal scroll containers) */
+      touch-action: manipulation;
     }
+
+    .chip__main, .chip__toggle{ touch-action: manipulation; }
 
     /* Dropdown inside chip (Android) */
     .chip--dropdown{ position: relative; padding-right: 8px; }
