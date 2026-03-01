@@ -53,17 +53,20 @@
 
         <div class="form-row">
           <label class="form-label" for="order-type">Тип устройства</label>
-          <select class="select" id="order-type">
-            <option value="iphone">iPhone</option>
-            <option value="android">Android смартфон</option>
-            <option value="laptop">Ноутбук (Windows)</option>
-            <option value="tablet">Планшет</option>
-          </select>
+          <input class="select" id="order-type" list="order-type-list" placeholder="Выберите из списка или впишите свой вариант" value="iPhone" />
+          <datalist id="order-type-list">
+            <option value="iPhone"></option>
+            <option value="Android смартфон"></option>
+            <option value="Ноутбук (Windows)"></option>
+            <option value="Планшет"></option>
+          </datalist>
+          <div class="form-hint" style="margin-top:6px;">Если вашего типа устройства нет в списке — просто впишите вручную.</div>
         </div>
 
         <div class="form-row">
           <label class="form-label" for="order-model">Модель устройства</label>
-          <select class="select" id="order-model"></select>
+          <input class="select" id="order-model" list="order-model-list" placeholder="Выберите из списка или впишите модель" />
+          <datalist id="order-model-list"></datalist>
         </div>
 
         <div class="form-row">
@@ -170,7 +173,7 @@
 </section> <!-- ТОП-6 ПРОБЛЕМ -->
 <section class="section" id="issues"> <div class="container"> <div class="section__header"> <div class="section__title">Топ-6 частых проблем с телефонами</div> <div class="section__subtitle">Чаще всего к нам обращаются с этими неисправностями.</div> </div> <div class="issues"> <div class="issue"> <div class="issue__title">Разбитый экран</div> <div class="issue__price">от 2 490 ₽</div> <div class="issue__note">Замена дисплейного модуля с гарантией до 90 дней.</div> </div> <div class="issue"> <div class="issue__title">Быстро садится батарея</div> <div class="issue__price">от 1 990 ₽</div> <div class="issue__note">Ставим новые аккумуляторы с сохранением ёмкости.</div> </div> <div class="issue"> <div class="issue__title">Не заряжается смартфон</div> <div class="issue__price">от 1 790 ₽</div> <div class="issue__note">Чистка или замена разъёма зарядки и цепей питания.</div> </div> <div class="issue"> <div class="issue__title">Проблемы со звуком</div> <div class="issue__price">от 1 490 ₽</div> <div class="issue__note">Ремонт динамиков и микрофона, чистка от пыли.</div> </div> <div class="issue"> <div class="issue__title">Не работает камера</div> <div class="issue__price">от 2 290 ₽</div> <div class="issue__note">Замена модуля камеры и шлейфов.</div> </div> <div class="issue"> <div class="issue__title">Не ловит сеть / Wi-Fi</div> <div class="issue__price">от 2 990 ₽</div> <div class="issue__note">Диагностика модуля связи, антенн, прошивки.</div> </div> </div> </div>
 </section> <!-- FOOTER -->
-<footer class="footer" id="contacts"> <div class="container footer__inner"> <div> <div class="logo"> <div class="logo__icon"> <img alt="ReBootFix" src="logo-rebootfix-black.png"/> </div> <div class="logo__text">ReBoot<span>Fix</span></div> </div> <div class="footer__row"> Сервисный центр ReBootFix — ремонт телефонов, планшетов и ноутбуков в Котельниках. </div> <div class="footer__row"> <span class="footer__label">Адрес</span><br/> Московская область, Котельники, микрорайон Парковый, 2<br/> <a href="https://yandex.ru/maps/org/rebootfix/221005671210?si=v9nre5a27yj263veqmcjpbkttr" target="_blank"> Открыть в Яндекс.Картах </a> </div> <div class="footer__row footer__contacts"> <div> <span class="footer__label">Телефон</span><br/> <a href="tel:+79645505252">+7 (964) 550-52-52</a> </div> <div> <span class="footer__label">Мессенджеры</span><br/> <div class="messengers-row"><a aria-label="Telegram" class="messenger" href="https://t.me/ReBootFixx" target="_blank"><img alt="Telegram" src="icon-telegram.png"/></a></div><div class="messengers-note">Ответим в Telegram</div><div class="tgk-link"><a class="btn btn--primary" href="https://t.me/ReBootFix" rel="noopener" target="_blank">Наш Telegram канал</a></div> </div> <div> <span class="footer__label">Отзывы</span><br/> <a href="https://yandex.ru/maps/org/rebootfix/221005671210?si=v9nre5a27yj263veqmcjpbkttr" target="_blank"> Читать отзывы на Яндекс.Картах </a> </div> </div> <div class="footer__row" style="margin-top:10px;font-size:12px;color:rgba(255,255,255,0.5);"> © <span id="year"></span> ReBootFix. Не является официальным сервисным центром производителей. </div> </div> <div class="footer__map"> <iframe allowfullscreen="true" frameborder="0" height="260" src="https://yandex.ru/map-widget/v1/?ll=37.874329,55.658332&amp;z=17&amp;pt=37.874329,55.658332,pm2rdm&amp;l=map" style="border:0;" width="100%"> </iframe>
+<footer class="footer" id="contacts"> <div class="container footer__inner"> <div> <div class="logo"> <div class="logo__icon"> <img alt="ReBootFix" src="logo-rebootfix-black.png"/> </div> <div class="logo__text">ReBoot<span>Fix</span></div> </div> <div class="footer__row"> Сервисный центр ReBootFix — ремонт телефонов, планшетов и ноутбуков в Котельниках. </div> <div class="footer__row"> <span class="footer__label">Адрес</span><br/> Московская область, Котельники, микрорайон Парковый, 2<br/> <a href="https://yandex.ru/maps/org/rebootfix/221005671210?si=v9nre5a27yj263veqmcjpbkttr" target="_blank"> Открыть в Яндекс.Картах </a> </div> <div class="footer__row footer__contacts"> <div> <span class="footer__label">Телефон</span><br/> <a href="tel:+79645505252">+7 (964) 550-52-52</a> </div> <div> <span class="footer__label">Мессенджеры</span><br/> <div class="messengers-row"><a aria-label="Telegram" class="messenger" href="https://t.me/ReBootFixx" target="_blank"><img alt="Telegram" src="icon-telegram.png"/></a></div><div class="messengers-note">Ответим в Telegram</div><div class="tgk-link"><a class="btn btn--primary" href="https://t.me/ReBootFix" rel="noopener" target="_blank">Наш Telegram канал</a></div> </div> <div> <span class="footer__label">Отзывы</span><br/> <a href="https://yandex.ru/maps/org/rebootfix/221005671210?si=v9nre5a27yj263veqmcjpbkttr" target="_blank"> Читать отзывы на Яндекс.Картах </a> <div class="trust-badges">  <iframe title="Рейтинг в Яндексе" src="https://yandex.ru/sprav/widget/rating-badge/221005671210?type=rating" width="150" height="50" frameborder="0" loading="lazy"></iframe>  <iframe title="Награда Яндекса" src="https://yandex.ru/sprav/widget/rating-badge/221005671210?type=award" width="150" height="50" frameborder="0" loading="lazy"></iframe>  <iframe title="Альтернативный бейдж" src="https://yandex.ru/sprav/widget/rating-badge/221005671210?type=alt" width="150" height="50" frameborder="0" loading="lazy"></iframe> </div> </div> </div> <div class="footer__row" style="margin-top:10px;font-size:12px;color:rgba(255,255,255,0.5);"> © <span id="year"></span> ReBootFix. Не является официальным сервисным центром производителей. </div> </div> <div class="footer__map"> <iframe allowfullscreen="true" frameborder="0" height="260" src="https://yandex.ru/map-widget/v1/?ll=37.874329,55.658332&amp;z=17&amp;pt=37.874329,55.658332,pm2rdm&amp;l=map" style="border:0;" width="100%"> </iframe>
 </div> </div></footer> <script src="device-data.js"></script>
 <script>
   // year in footer
@@ -343,31 +346,53 @@
 
   setupAndroidChipDropdown();
   // models for calculator (from device-data.js)
-  function getDeviceOptions(type) {
+  function normalizeType(raw) {
+    const exact = (raw || '').trim();
+    const v = exact.toLowerCase();
+
+    // Exact labels from the datalist
+    const mapExact = {
+      'iphone': { key: 'iphone', label: 'iPhone' },
+      'android смартфон': { key: 'android', label: 'Android смартфон' },
+      'ноутбук (windows)': { key: 'laptop', label: 'Ноутбук (Windows)' },
+      'планшет': { key: 'tablet', label: 'Планшет' },
+    };
+    if (mapExact[v]) return { ...mapExact[v], isCustom: false };
+
+    // Typed variations (so user can type anything close)
+    if (v.includes('iphone') || v === 'айфон') return { key: 'iphone', label: 'iPhone', isCustom: false };
+    if (v.includes('android') || v.includes('андроид')) return { key: 'android', label: 'Android смартфон', isCustom: false };
+    if (v.includes('ноут') || v.includes('laptop') || v.includes('windows') || v.includes('pc') || v.includes('пк')) {
+      return { key: 'laptop', label: 'Ноутбук (Windows)', isCustom: false };
+    }
+    if (v.includes('планш') || v.includes('tablet') || v.includes('ipad')) return { key: 'tablet', label: 'Планшет', isCustom: false };
+
+    return { key: 'custom', label: exact || 'Другое устройство', isCustom: true };
+  }
+
+  function getModelLabelsForType(typeKey) {
     const d = window.DEVICE_DATA || {};
 
-    if (type === 'iphone') {
-      return (d.iphone && d.iphone.models || []).map(m => ({ value: m.modelKey, label: m.modelName }));
+    if (typeKey === 'iphone') {
+      return (d.iphone && d.iphone.models || []).map(m => m.modelName);
     }
 
-    if (type === 'android') {
+    if (typeKey === 'android') {
       const brands = ['samsung', 'honor', 'xiaomi', 'huawei'];
       const out = [];
       brands.forEach(bk => {
         const b = d[bk];
-        (b && b.models || []).forEach(m => {
-          out.push({ value: m.modelKey, label: (b.brand + ' ' + m.modelName) });
-        });
+        (b && b.models || []).forEach(m => out.push((b.brand + ' ' + m.modelName)));
       });
       return out;
     }
 
-    if (type === 'tablet') {
-      return (d.ipad && d.ipad.models || []).map(m => ({ value: m.modelKey, label: m.modelName }));
+    if (typeKey === 'tablet') {
+      return (d.ipad && d.ipad.models || []).map(m => m.modelName);
     }
 
-    if (type === 'laptop') {
-      return (d.laptops && d.laptops.models || []).map(m => ({ value: m.modelKey, label: m.modelName }));
+    if (typeKey === 'laptop') {
+      return (d.laptops && d.laptops.models || []).map(m => m.modelName);
     }
 
     return [];
@@ -375,22 +400,37 @@
 
   const orderTypeEl = document.getElementById('order-type');
   const orderModelEl = document.getElementById('order-model');
+  const orderModelListEl = document.getElementById('order-model-list');
 
   function refillModels() {
-    if (!orderTypeEl || !orderModelEl) return;
-    const opts = getDeviceOptions(orderTypeEl.value);
-    orderModelEl.innerHTML = '';
-    opts.forEach(o => {
+    if (!orderTypeEl || !orderModelEl || !orderModelListEl) return;
+
+    const typeInfo = normalizeType(orderTypeEl.value);
+    const models = getModelLabelsForType(typeInfo.key);
+
+    // refill datalist
+    orderModelListEl.innerHTML = '';
+    models.forEach(label => {
       const op = document.createElement('option');
-      op.value = o.value;
-      op.textContent = o.label;
-      orderModelEl.appendChild(op);
+      op.value = label;
+      orderModelListEl.appendChild(op);
     });
+
+    // For unknown types leave model field free-text (no list)
+    if (typeInfo.isCustom) return;
+
+    // If model is empty, auto-pick first option (faster for the user)
+    if (!orderModelEl.value && models.length) {
+      orderModelEl.value = models[0];
+    }
   }
 
   document.addEventListener('DOMContentLoaded', function () {
     refillModels();
-    if (orderTypeEl) orderTypeEl.addEventListener('change', refillModels);
+    if (orderTypeEl) {
+      orderTypeEl.addEventListener('change', refillModels);
+      orderTypeEl.addEventListener('blur', refillModels);
+    }
   });
 
   const priceMap = {
@@ -407,20 +447,28 @@
   document.getElementById('order-calc-btn')?.addEventListener('click', function (e) {
     e.preventDefault();
 
-    const type = orderTypeEl.value;
-    const model = orderModelEl.value;
+    const typeInfo = normalizeType(orderTypeEl.value);
+    const typeKey = typeInfo.key;
+    const typeLabel = typeInfo.label;
+    const model = (orderModelEl.value || '').trim() || '—';
 
     const problemEl = document.getElementById('order-problem');
     const problem = problemEl.value;
     const problemText = problemEl.options[problemEl.selectedIndex].text;
 
-    const rangesForType = priceMap[type] || priceMap.iphone;
+    // Price ranges: if type is unknown, show a generic range
+    const generic = { screen: [3500, 12000], battery: [2500, 8000], port: [2000, 7000], sound: [2000, 6000], other: [2500, 15000] };
+    const rangesForType = priceMap[typeKey] || generic;
     const range = rangesForType[problem] || rangesForType.other;
     const [min, max] = range;
 
-    orderPriceText.textContent = `Ориентировочная стоимость: от ${min.toLocaleString('ru-RU')} до ${max.toLocaleString('ru-RU')} ₽. Точную цену назовём после диагностики.`;
+    const extraNote = (typeKey === 'custom')
+      ? ' Для выбранного типа устройства расчёт ориентировочный — точную цену скажем после диагностики.'
+      : ' Точную цену назовём после диагностики.';
+
+    orderPriceText.textContent = `Ориентировочная стоимость: от ${min.toLocaleString('ru-RU')} до ${max.toLocaleString('ru-RU')} ₽.` + extraNote;
     orderContactCard.classList.remove('form-card--disabled');
-    orderSummary.textContent = `Модель: ${model}. Проблема: ${problemText}.`;
+    orderSummary.textContent = `Тип: ${typeLabel}. Модель: ${model}. Проблема: ${problemText}.`;
   });
 
   const orderForm = document.getElementById('order-contact-form');

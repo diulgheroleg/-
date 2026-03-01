@@ -16,6 +16,7 @@
       background: var(--bg-dark);
       color: var(--text-main);
       line-height: 1.5;
+      font-size: 16px;
     }
 
     img { max-width: 100%; display: block; }
@@ -828,6 +829,70 @@
       gap: 8px;
     }
 
+    /* TRUST BADGES (Yandex widgets etc.) */
+    .trust-badges{
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .trust-badges iframe{
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    /* SIMPLE BENEFITS GRID (service pages) */
+    .benefits{ margin-top: 18px; }
+    .benefits__grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 14px;
+    }
+    .benefit-card{
+      border-radius: 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 16px 16px 14px;
+    }
+    .benefit-card__title{
+      font-weight: 800;
+      font-size: 16px;
+    }
+    .benefit-card__text{
+      margin-top: 6px;
+      color: rgba(255,255,255,0.75);
+      font-size: 13px;
+    }
+     (max-width: 960px){
+      .benefits__grid{ grid-template-columns: 1fr; }
+    }
+
+    /* TRUST CARD (service pages) */
+    .trust-card{
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .trust-card__title{ font-weight: 800; font-size: 18px; }
+    .trust-card__sub{ margin-top: 6px; color: rgba(255,255,255,0.72); font-size: 13px; max-width: 680px; }
+    .trust-card__right{ display:flex; flex-direction: column; align-items:flex-end; gap: 10px; }
+    .trust-card__right .trust-badges{ justify-content: flex-end; }
+     (max-width: 640px){
+      .trust-card{ align-items: stretch; }
+      .trust-card__right{ align-items: stretch; }
+      .trust-card__right .btn{ width: 100%; }
+    }
+
+
     /* МЕССЕНДЖЕРЫ */
 
     .messengers-row {
@@ -1569,7 +1634,6 @@ a.btn.btn--primary{
 .hero__pill { color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
 .hero__pill:hover { background: rgba(0,0,0,0.45); border-color: rgba(255,255,255,0.14); }
 
-}
 
 /* TG button should be same size as primary button */
 .tg-big-btn{
@@ -1731,3 +1795,43 @@ input, select, textarea { font-size: 16px; }
 .model-card{ box-shadow: none !important; }
 .hero__image{ box-shadow: none !important; }
 .phone{ box-shadow: none !important; }
+
+/* DESKTOP TYPOGRAPHY BOOST (readability on PC) */
+@media (min-width: 1024px){
+  body{ font-size: 18px; }
+
+  .nav{ font-size: 16px; }
+  .nav__link{ opacity: 0.95; }
+
+  .btn{ font-size: 16px; padding: 12px 24px; }
+
+  .hero__text{ font-size: 17px; }
+  .hero__note{ font-size: 14px; }
+
+  .section__title{ font-size: 26px; }
+  .section__subtitle{ font-size: 15px; }
+
+  .card{ font-size: 15px; }
+  .card__title{ font-size: 17px; }
+  .card__text{ font-size: 14px; }
+  .card__footer, .card__link{ font-size: 14px; }
+
+  .form-card{ font-size: 15px; }
+  .form-card__title{ font-size: 18px; }
+  .form-label{ font-size: 14px; }
+  .input, .select, textarea{ font-size: 16px; padding: 10px 12px; }
+
+  .issue__price{ font-size: 14px; }
+  .issue__note{ font-size: 13px; }
+
+  .footer__inner{ font-size: 14px; }
+}
+
+@media (min-width: 1024px){
+  .models-title{ font-size: 32px; }
+  .models-sub{ font-size: 16px; }
+  .find-device__sub{ font-size: 14px; }
+  .benefit-card__title{ font-size: 18px; }
+  .benefit-card__text{ font-size: 14px; }
+  .trust-card__sub{ font-size: 14px; }
+}
