@@ -1629,11 +1629,44 @@ input, select, textarea { font-size: 16px; }
 
 /* On mobile: open Android dropdown ABOVE the chips (so it doesn't go under hero card) */
 @media (max-width: 640px){
+  /* Keep dropdown opening DOWN on mobile as well */
   .chip--dropdown .chip__menu{
-    top: auto;
-    bottom: calc(100% + 10px);
+    top: calc(100% + 10px);
+    bottom: auto;
   }
 }
+
+/* =====================================================
+   Android dropdown: make styles work even when the menu
+   is portaled to <body> (Telegram/iOS fix).
+   These rules intentionally do NOT depend on parent.
+   ===================================================== */
+.chip__menu{
+  min-width: 220px;
+  padding: 8px;
+  border-radius: 16px;
+  background: rgba(15,15,18,.96);
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 18px 40px rgba(0,0,0,.45);
+  display: none;
+}
+.chip__menu.is-open{ display:block; }
+.chip__menu.is-portal{
+  position: fixed !important;
+  top: auto;
+  left: auto;
+  z-index: 99999;
+}
+.chip__item{
+  display:block;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: #fff;
+  text-decoration:none;
+  font-weight: 700;
+  font-size: 14px;
+}
+.chip__item:hover{ background: rgba(255,255,255,.08); }
 
 /* Hero */
 @media (max-width: 900px){

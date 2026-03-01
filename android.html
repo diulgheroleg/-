@@ -21,6 +21,14 @@
     .model-list {list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:12px;}
     .model-item {display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:16px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);}
     .model-btn {text-decoration:none;font-weight:700;color:var(--accent);}
+  
+    .brand-filter{position:relative;display:flex;align-items:center;justify-content:flex-end;}
+    .brand-filter__btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#fff;font-weight:700;cursor:pointer;}
+    .brand-filter__menu{position:absolute;right:0;top:calc(100% + 8px);min-width:220px;padding:8px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:rgba(15,15,15,.96);box-shadow:0 18px 40px rgba(0,0,0,.45);display:none;z-index:50;}
+    .brand-filter__menu.is-open{display:block;}
+    .brand-filter__item{width:100%;text-align:left;padding:10px 12px;border-radius:12px;border:0;background:transparent;color:#fff;font-weight:700;cursor:pointer;}
+    .brand-filter__item:hover{background:rgba(255,255,255,.06);}
+
   </style>
 
 </head>
@@ -44,6 +52,18 @@
     <div class="models-title" id="pageTitle">Ремонт Samsung</div>
   </div>
 
+  <div class="brand-filter" id="brandDropdown">
+    <button class="brand-filter__btn" id="brandDropdownBtn" type="button"
+            aria-haspopup="true" aria-expanded="false" aria-controls="brandDropdownMenu">
+      <span id="brandDropdownLabel">Ремонт Samsung</span> ▾
+    </button>
+    <div class="brand-filter__menu" id="brandDropdownMenu" aria-hidden="true">
+      <button class="brand-filter__item" type="button" data-brand="samsung">Ремонт Samsung</button>
+      <button class="brand-filter__item" type="button" data-brand="honor">Ремонт Honor</button>
+      <button class="brand-filter__item" type="button" data-brand="xiaomi">Ремонт Xiaomi</button>
+      <button class="brand-filter__item" type="button" data-brand="huawei">Ремонт Huawei</button>
+    </div>
+  </div>
 </div>
 
 <div class="cards-grid" id="modelsGrid"></div>
@@ -69,55 +89,96 @@
 </footer>
 <script>
 (function(){
-  const btn = document.getElementById('brandFilterBtn');
-  const menu = document.getElementById('brandFilterMenu');
-  const title = document.getElementById('brandTitle');
-  const params = new URLSearchParams(window.location.search);
-  let current = params.get('brand') || 'samsung';
-  if(!['samsung','honor','xiaomi','huawei'].includes(current)) current = 'samsung';
+  const wrap  = document.getElementById('brandDropdown');
+  const btn   = document.getElementById('brandDropdownBtn');
+  const menu  = document.getElementById('brandDropdownMenu');
+  const label = document.getElementById('brandDropdownLabel');
+  const title = document.getElementById('pageTitle');
+
+  const ALLOWED = ['samsung','honor','xiaomi','huawei'];
+  const BRAND_TO_NAME = {
+    samsung: 'Samsung',
+    honor: 'Honor',
+    xiaomi: 'Xiaomi',
+    huawei: 'Huawei'
+  };
 
   function setBrand(brandKey){
-    current = brandKey;
-    const nice = (brandKey === 'samsung') ? 'Samsung' :
-                 (brandKey === 'honor') ? 'Honor' :
-                 (brandKey === 'xiaomi') ? 'Xiaomi' : 'Huawei';
-    if(title) title.textContent = 'Модели ' + nice;
+    const key = ALLOWED.includes(brandKey) ? brandKey : 'samsung';
+    const nice = BRAND_TO_NAME[key] || 'Samsung';
+
+    // Заголовок страницы
+    if(title) title.textContent = 'Ремонт ' + nice;
+    // Текст кнопки
+    if(label) label.textContent = 'Ремонт ' + nice;
+
+    // Рендер моделей
     if(window.renderModelCards && window.getBrandModels){
-      renderModelCards('modelsGrid', getBrandModels(brandKey), {previewLimit: 3, maxModels: 20});
+      window.renderModelCards('modelsGrid', window.getBrandModels(key), {previewLimit: 3, maxModels: 20});
     }
-    if(btn) btn.firstChild.textContent = 'Ремонт ' + nice + ' ';
+
+    // Обновим URL (?brand=...)
+    try{
+      const u = new URL(window.location.href);
+      u.searchParams.set('brand', key);
+      history.replaceState({}, '', u);
+    }catch(e){}
   }
 
   function openMenu(){
     if(!menu) return;
     menu.classList.add('is-open');
+    if(btn) btn.setAttribute('aria-expanded','true');
     menu.setAttribute('aria-hidden','false');
   }
   function closeMenu(){
     if(!menu) return;
     menu.classList.remove('is-open');
+    if(btn) btn.setAttribute('aria-expanded','false');
     menu.setAttribute('aria-hidden','true');
   }
+  function toggleMenu(){
+    if(menu && menu.classList.contains('is-open')) closeMenu();
+    else openMenu();
+  }
+
+  // Инициализация из URL
+  const params = new URLSearchParams(window.location.search);
+  const initial = params.get('brand') || 'samsung';
 
   document.addEventListener('DOMContentLoaded', function(){
-    setBrand(current);
+    setBrand(initial);
   });
 
   if(btn){
     btn.addEventListener('click', function(e){
+      e.preventDefault();
       e.stopPropagation();
-      if(menu && menu.classList.contains('is-open')) closeMenu(); else openMenu();
+      toggleMenu();
     });
   }
+
   if(menu){
     menu.addEventListener('click', function(e){
       const item = e.target.closest('[data-brand]');
       if(!item) return;
+      e.preventDefault();
+      e.stopPropagation();
       setBrand(item.getAttribute('data-brand'));
       closeMenu();
     });
   }
-  document.addEventListener('click', closeMenu);
+
+  // Закрыть по клику вне
+  document.addEventListener('click', function(e){
+    if(!wrap) return closeMenu();
+    if(!wrap.contains(e.target)) closeMenu();
+  });
+
+  // Закрыть по Esc
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeMenu();
+  });
 })();
 </script>
 

@@ -187,59 +187,55 @@
   });
 
 
-  // Android chip dropdown (open on click on the whole chip)
+  // Android chip dropdown (robust for iOS Telegram WebView + desktop)
+  // Requirements: open DOWN, and reliably open on tap.
   function setupAndroidChipDropdown(){
     var chip = document.getElementById('androidChip');
     if(!chip) return;
-    var main = chip.querySelector('.chip__main');
-    var toggle = chip.querySelector('.chip__toggle');
     var menu = chip.querySelector('.chip__menu');
-    if(!main || !toggle || !menu) return;
+    var toggle = chip.querySelector('.chip__toggle');
+    var main = chip.querySelector('.chip__main');
+    if(!menu || !toggle || !main) return;
 
-    // On mobile (especially Telegram iOS WebView) the chips row is scrollable.
-    // Absolute-positioned dropdowns inside an overflow container get clipped and
-    // taps may be treated as scroll gestures. We solve both by:
-    // 1) "portaling" the menu to <body> with position:fixed
-    // 2) using a tap-detection handler (touchstart/touchend with move threshold)
+    // Always portal to <body> so the menu is never clipped by overflow containers.
+    var placeholder = document.createComment('android-menu-anchor');
+    var portaled = false;
 
-    var portalPlaceholder = document.createComment('android-menu-anchor');
-    var portalActive = false;
-
-    function attachMenuToBody(){
-      if (portalActive) return;
-      chip.insertBefore(portalPlaceholder, menu);
+    function portal(){
+      if(portaled) return;
+      chip.insertBefore(placeholder, menu);
       document.body.appendChild(menu);
       menu.classList.add('is-portal');
-      portalActive = true;
+      portaled = true;
     }
 
-    function restoreMenu(){
-      if (!portalActive) return;
-      if (portalPlaceholder.parentNode) {
-        portalPlaceholder.parentNode.insertBefore(menu, portalPlaceholder);
-        portalPlaceholder.parentNode.removeChild(portalPlaceholder);
+    function unportal(){
+      if(!portaled) return;
+      if(placeholder.parentNode){
+        placeholder.parentNode.insertBefore(menu, placeholder);
+        placeholder.parentNode.removeChild(placeholder);
       }
       menu.classList.remove('is-portal');
       menu.style.top = '';
       menu.style.left = '';
-      menu.style.right = '';
-      menu.style.bottom = '';
-      portalActive = false;
+      menu.style.zIndex = '';
+      portaled = false;
     }
 
-    function positionMenuPreferAbove(){
+    function positionBelow(){
       var rect = chip.getBoundingClientRect();
       var margin = 10;
-      var mw = menu.offsetWidth;
-      var mh = menu.offsetHeight;
       var vw = window.innerWidth;
       var vh = window.innerHeight;
+      var mw = menu.offsetWidth;
+      var mh = menu.offsetHeight;
 
       var left = Math.min(Math.max(rect.left, 8), vw - mw - 8);
-      var topAbove = rect.top - mh - margin;
-      var topBelow = rect.bottom + margin;
-      var top = (topAbove >= 8) ? topAbove : topBelow;
-      top = Math.min(Math.max(top, 8), vh - mh - 8);
+      var top = rect.bottom + margin;
+      // Clamp to viewport (still opening down, but always visible)
+      if(top + mh > vh - 8){
+        top = Math.max(8, vh - mh - 8);
+      }
 
       menu.style.position = 'fixed';
       menu.style.left = left + 'px';
@@ -248,83 +244,74 @@
     }
 
     function open(){
-      attachMenuToBody();
+      portal();
       chip.classList.add('is-open');
       menu.classList.add('is-open');
       toggle.setAttribute('aria-expanded','true');
       menu.setAttribute('aria-hidden','false');
-
-      requestAnimationFrame(function(){
-        positionMenuPreferAbove();
-      });
+      requestAnimationFrame(positionBelow);
     }
+
     function close(){
       chip.classList.remove('is-open');
       menu.classList.remove('is-open');
       toggle.setAttribute('aria-expanded','false');
       menu.setAttribute('aria-hidden','true');
-      restoreMenu();
-    }
-    function isOpen(){
-      return menu.classList.contains('is-open');
+      unportal();
     }
 
-    function onTriggerClick(e){
-      if(e.target && e.target.closest && (e.target.closest('.chip__item') || e.target.closest('.chip__menu'))) return;
-      // вместо перехода по ссылке — открываем список брендов
-      // На мобильных Safari/WebView иногда click не срабатывает из-за горизонтального скролла nav,
-      // поэтому обрабатываем и touchend/pointerup. preventDefault нужен, чтобы <a> не уводил на android.html.
-      if (e && typeof e.preventDefault === 'function') e.preventDefault();
-      if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+    function isOpen(){ return menu.classList.contains('is-open'); }
+
+    // Tap detection: open on tap, ignore horizontal scroll gesture.
+    var startX=0, startY=0, moved=false;
+    function onTouchStart(e){
+      var t = e.touches && e.touches[0];
+      if(!t) return;
+      startX = t.clientX; startY = t.clientY; moved = false;
+    }
+    function onTouchMove(e){
+      var t = e.touches && e.touches[0];
+      if(!t) return;
+      var dx = Math.abs(t.clientX - startX);
+      var dy = Math.abs(t.clientY - startY);
+      if(dx > 10 || dy > 10) moved = true;
+    }
+
+    function trigger(e){
+      // "moved" is only meaningful for touch gestures (to avoid opening while scrolling).
+      // On desktop/pointer events we must not block opening.
+      var isTouch = e && e.type && e.type.indexOf("touch") === 0;
+      if(isTouch && moved) return;
+      if(!isTouch) moved = false;
+      // allow normal clicks inside the menu
+      if(e && e.target && e.target.closest && e.target.closest('.chip__item')) return;
+      if(e && typeof e.preventDefault === 'function') e.preventDefault();
+      if(e && typeof e.stopPropagation === 'function') e.stopPropagation();
       if(isOpen()) close(); else open();
     }
 
-    function bindTap(el){
-      if(!el) return;
-      var sx=0, sy=0, moved=false;
-      el.addEventListener('touchstart', function(e){
-        if(!e.touches || !e.touches[0]) return;
-        sx = e.touches[0].clientX;
-        sy = e.touches[0].clientY;
-        moved = false;
-      }, { passive: true });
-      el.addEventListener('touchmove', function(e){
-        if(!e.touches || !e.touches[0]) return;
-        var dx = Math.abs(e.touches[0].clientX - sx);
-        var dy = Math.abs(e.touches[0].clientY - sy);
-        if(dx > 10 || dy > 10) moved = true;
-      }, { passive: true });
-      el.addEventListener('touchend', function(e){
-        if(moved) return;
-        onTriggerClick(e);
-      }, { passive: false });
+    // Open on any tap on the chip (including the arrow). Prevent link navigation.
+    chip.addEventListener('touchstart', onTouchStart, {passive:true});
+    chip.addEventListener('touchmove', onTouchMove, {passive:true});
+    chip.addEventListener('touchend', trigger, {passive:false});
+    chip.addEventListener('pointerup', trigger, {passive:false});
+    chip.addEventListener('click', trigger, {passive:false});
 
-      el.addEventListener('click', onTriggerClick, { passive: false });
-      el.addEventListener('pointerup', onTriggerClick, { passive: false });
-    }
-
-    bindTap(main);
-    bindTap(toggle);
-
-    // кликабельна вся область кнопки (включая пустоты)
-    bindTap(chip);
-
+    // Close on outside tap/click
     document.addEventListener('click', function(e){
-      if(portalActive) {
-        if(!chip.contains(e.target) && !menu.contains(e.target)) close();
-      } else {
-        if(!chip.contains(e.target)) close();
-      }
+      if(!isOpen()) return;
+      if(menu.contains(e.target) || chip.contains(e.target)) return;
+      close();
     });
-    window.addEventListener('resize', function(){
-      if(isOpen()) positionMenuPreferAbove();
-    });
-    window.addEventListener('scroll', function(){
-      if(isOpen()) positionMenuPreferAbove();
-    }, { passive: true });
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape') close();
-    });
+    document.addEventListener('touchend', function(e){
+      if(!isOpen()) return;
+      if(menu.contains(e.target) || chip.contains(e.target)) return;
+      close();
+    }, {passive:true});
+
+    window.addEventListener('resize', function(){ if(isOpen()) positionBelow(); });
+    window.addEventListener('scroll', function(){ if(isOpen()) positionBelow(); }, {passive:true});
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
   }
 
   setupAndroidChipDropdown();
