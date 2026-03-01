@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"> <meta charset="utf-8"/> <title>ReBootFix — ремонт техники в Котельниках</title> <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="style_edited.css" rel="stylesheet"/>
+</head>
+<body class="page"> <header class="header"> <div class="container header__inner">
+<a class="logo" href="index.html"> <div class="logo__icon"> <img alt="ReBootFix" src="logo-rebootfix-black.png" class="header__logo-img"/> </div> <div class="logo__text">ReBoot<span>Fix</span></div>
+</a> <nav class="nav"> <a class="nav__link" href="#steps">Как мы работаем</a> <a class="nav__link" href="#order">Онлайн-расчёт</a> <a class="nav__link" href="#issues">Топ проблем</a> <a class="nav__link" href="#contacts">Контакты</a> </nav> <div class="header__actions"> <a class="btn btn--primary" href="https://t.me/ReBootFix" rel="noopener" target="_blank">Наш Telegram канал</a> <a class="btn btn--primary" href="#contacts">Связаться с нами</a> </div> </div>
+</header> <!-- ЧИПСЫ РАЗДЕЛОВ -->
+<div class="chips">
+<div class="container">
+<div class="chips__scroll">
+<a class="chip" href="iphone.html"><span class="chip__icon"><img alt="" class="chip__img" src="icon-apple.png"/></span>Ремонт iPhone</a>
+<div class="chip chip--dropdown" id="androidChip" role="navigation" aria-label="Ремонт Android">
+  <a class="chip__main" href="android.html">
+    <span class="chip__icon"><img alt="" class="chip__img" src="icon-android.png"/></span>
+    Ремонт Android
+  </a>
+  <button class="chip__toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="androidChipMenu">▾</button>
+  <div class="chip__menu" id="androidChipMenu" aria-hidden="true">
+    <a class="chip__item" href="android.html?brand=samsung">Samsung</a>
+    <a class="chip__item" href="android.html?brand=honor">Honor</a>
+    <a class="chip__item" href="android.html?brand=xiaomi">Xiaomi</a>
+    <a class="chip__item" href="android.html?brand=huawei">Huawei</a>
+  </div>
+</div>
+<a class="chip" href="laptops.html"><span class="chip__icon"><img alt="" class="chip__img" src="icon-windows2.png"/></span>Ремонт ноутбуков (Windows)</a>
+<a class="chip" href="tablets.html"><span class="chip__icon"><img alt="" class="chip__img" src="icon-tablet2.png"/></span>Планшеты</a>
+</div>
+</div>
+</div>
+<!-- HERO -->
+<section class="hero"> <div class="container hero__inner"> <div> <div class="hero__badge"> <span class="hero__badge-dot"></span> Экспресс-ремонт телефонов и ноутбуков в Котельниках </div> <h1> Починим ваш смартфон или ноутбук <span>за день</span> с гарантией. </h1> <p class="hero__text"> ReBootFix — сервисный центр полного цикла. Бесплатно диагностируем, согласуем стоимость и вернём устройство как новое. </p> <div class="hero__actions"> <a class="btn btn--primary" href="#order">Быстрая консультация</a> <a class="btn btn--primary tg-big-btn" href="https://t.me/ReBootFix" rel="noopener" target="_blank">Ответим в Telegram</a> </div> <p class="hero__note">Работаем с оригинальными и проверенными комплектующими.</p> </div> <div class="hero__image"> <div class="hero__phone-wrap"> <div class="phone phone--broken"> <div class="phone__screen"></div> <div class="phone__notch"></div> </div> <div class="phone phone--clean"> <div class="phone__screen"></div> <div class="phone__notch"></div> </div> </div> <div class="hero__badge-card"> <strong>Экспресс-ремонт от 30 минут</strong> <span>Сразу считаем стоимость и выдаём гарантию до 90 дней.</span> </div> </div> </div>
+</section> <!-- STATS -->
+<section class="stats"> <div class="container stats__grid"> <div class="stat"> <div class="stat__value">90 дней</div> <div class="stat__label">гарантия на работу и запчасти</div> </div> <div class="stat"> <div class="stat__value">30 минут</div> <div class="stat__label">среднее время простого ремонта</div> </div> <div class="stat"> <div class="stat__value">до 40%</div> <div class="stat__label">дешевле сетевых сервисов и официалов</div> </div> </div>
+</section> <!-- ОНЛАЙН-РАСЧЁТ -->
+<section class="section" id="order">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__title">Рассчитать стоимость и оформить заказ онлайн</div>
+    </div>
+
+    <div class="flex-2">
+      <!-- Шаг 1 -->
+      <div class="form-card">
+        <div class="form-card__title">Шаг 1 — устройство и проблема</div>
+        <p class="form-hint">Выберите тип устройства, модель и проблему. Мы посчитаем ориентировочную стоимость.</p>
+
+        <div class="form-row">
+          <label class="form-label" for="order-type">Тип устройства</label>
+          <select class="select" id="order-type">
+            <option value="iphone">iPhone</option>
+            <option value="android">Android смартфон</option>
+            <option value="laptop">Ноутбук (Windows)</option>
+            <option value="tablet">Планшет</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="order-model">Модель устройства</label>
+          <select class="select" id="order-model"></select>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="order-problem">Проблема</label>
+          <select class="select" id="order-problem">
+            <option value="screen">Разбитый экран</option>
+            <option value="battery">Быстро садится батарея</option>
+            <option value="port">Не заряжается / разъём</option>
+            <option value="sound">Проблемы со звуком</option>
+            <option value="other">Другое</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <button class="btn btn--primary" id="order-calc-btn">Рассчитать стоимость</button>
+          <div class="form-result" id="order-price-text"></div>
+        </div>
+      </div>
+
+      <!-- Шаг 2 -->
+      <div class="form-card form-card--disabled" id="order-contact-card">
+        <div class="form-card__title">Шаг 2 — контакты для связи</div>
+        <p class="form-hint">После отправки заявки мастер проверит данные и напишет вам для уточнения деталей.</p>
+
+        <div class="order-summary" id="order-summary"></div>
+
+        <form id="order-contact-form">
+          <div class="form-row">
+            <label class="form-label" for="order-name">Имя</label>
+            <input class="input" id="order-name" placeholder="Как к вам обращаться?" />
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="order-telegram">Telegram</label>
+            <input class="input" id="order-telegram" placeholder="@username" autocomplete="off" inputmode="text" />
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="order-comment">Комментарий</label>
+            <textarea id="order-comment" placeholder="Опишите проблему, удобное время для связи, дополнительные детали..."></textarea>
+          </div>
+
+          <div class="form-row">
+            <button class="btn btn--outline" id="order-submit-btn">Отправить заявку</button>
+            <div class="order-success" id="order-success">Заявка передана мастеру. Мы свяжемся с вами в ближайшее время.</div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="order-subnote"><span>Сначала выбираете модель и проблему, потом оставляете контакты.</span></div>
+  </div>
+</section>
+<!-- КАК МЫ РАБОТАЕМ -->
+<section class="section section-steps" id="steps"> <div class="container"> <div class="section__header"> <div class="section__title">Как мы работаем</div> </div> <div class="steps-grid"> <div class="step-card"> <div class="step-card__top"> <span>1</span> <div class="step-card__icon"> <svg viewbox="0 0 24 24"> <rect fill="none" height="12" rx="2" stroke-width="1.6" width="16" x="4" y="6"></rect> <path d="M5 8.5 12 13l7-4.5" fill="none" stroke-width="1.6"></path> </svg> </div> </div> <div class="step-card__title">Заявка</div> <div class="step-card__text"> Вы оставляете заявку на сайте или приезжаете к нам в сервисный центр. </div> </div> <div class="step-card"> <div class="step-card__top"> <span>2</span> <div class="step-card__icon"> <svg viewbox="0 0 24 24"> <circle cx="11" cy="11" fill="none" r="4.5" stroke-width="1.6"></circle> <path d="m15 15 3.2 3.2" fill="none" stroke-linecap="round" stroke-width="1.6"></path> </svg> </div> </div> <div class="step-card__title">Диагностика</div> <div class="step-card__text"> Проводим бесплатный осмотр, находим причину поломки и называем стоимость ремонта. </div> </div> <div class="step-card"> <div class="step-card__top"> <span>3</span> <div class="step-card__icon"> <svg viewbox="0 0 24 24"> <rect fill="none" height="16" rx="2" stroke-width="1.6" width="12" x="6" y="4"></rect> <path d="m9 12 2 2 4-4" fill="none" stroke-linecap="round" stroke-width="1.6"></path> </svg> </div> </div> <div class="step-card__title">Согласование</div> <div class="step-card__text"> Согласуем сроки и цену. Всё фиксируем до начала работ. </div> </div> <div class="step-card"> <div class="step-card__top"> <span>4</span> <div class="step-card__icon"> <svg viewbox="0 0 24 24"> <path d="M14.5 4.5 16 6l-2.5 2.5-2-2L12.5 4h2zM7 9l2 2-4.5 6.5a1.5 1.5 0 0 1-2.1.3l-.7-.7a1.5 1.5 0 0 1 .3-2.1L7 9z" fill="none" stroke-linejoin="round" stroke-width="1.6"></path> <path d="M13 11 18 16" fill="none" stroke-linecap="round" stroke-width="1.6"></path> </svg> </div> </div> <div class="step-card__title">Ремонт</div> <div class="step-card__text"> Мастер производит ремонт, меняет необходимые детали и проверяет устройство. </div> </div> <div class="step-card"> <div class="step-card__top"> <span>5</span> <div class="step-card__icon"> <svg viewbox="0 0 24 24"> <path d="M12 4 6 6v6.5c0 3.1 2.1 5.9 6 7.5 3.9-1.6 6-4.4 6-7.5V6L12 4z" fill="none" stroke-width="1.6"></path> <path d="m9.5 12.2 1.7 1.7 3.3-3.3" fill="none" stroke-linecap="round" stroke-width="1.6"></path> </svg> </div> </div> <div class="step-card__title">Вы забираете устройство</div> <div class="step-card__text"> Оплачиваете ремонт и получаете гарантию до 90 дней. </div> </div> </div> </div>
+</section> <!-- ПОПУЛЯРНЫЕ УСЛУГИ -->
+<section class="section section--popular">
+<div class="container">
+<div class="section__header">
+<div>
+<div class="section__title">Популярные услуги</div>
+<div class="section__subtitle">Ремонт телефонов, планшетов и ноутбуков в Котельниках.</div>
+</div>
+</div>
+<div class="grid-4">
+<div class="card">
+<div aria-hidden="true" class="card__icon card__icon--logo"><img alt="" class="card__img" src="icon-apple.png"/></div>
+<div class="card__title">Ремонт iPhone</div>
+<div class="card__text">Замена дисплея, аккумулятора, камер, разъёмов и других модулей.</div>
+<div class="card__footer">
+<span>от 1 990 ₽</span>
+<a class="card__link" href="iphone.html">Перейти к моделям →</a>
+</div>
+</div>
+<div class="card">
+<div aria-hidden="true" class="card__icon card__icon--logo"><img alt="" class="card__img" src="icon-android.png"/></div>
+<div class="card__title">Ремонт Android</div>
+<div class="card__text">Samsung, Xiaomi, Realme и другие бренды. Диагностика и ремонт плат.</div>
+<div class="card__footer">
+<span>от 1 490 ₽</span>
+<a class="card__link" href="android.html">Перейти к моделям →</a>
+</div>
+</div>
+<div class="card">
+<div aria-hidden="true" class="card__icon card__icon--logo"><img alt="" class="card__img" src="icon-laptop.png"/></div>
+<div class="card__title">Ремонт ноутбуков</div>
+<div class="card__text">Чистка, замена экрана, клавиатуры, ремонт плат и разъёмов.</div>
+<div class="card__footer">
+<span>от 2 490 ₽</span>
+<a class="card__link" href="laptops.html">Перейти к моделям →</a>
+</div>
+</div>
+<div class="card">
+<div aria-hidden="true" class="card__icon card__icon--logo"><img alt="" class="card__img" src="icon-tablet2.png"/></div>
+<div class="card__title">Планшеты</div>
+<div class="card__text">Замена стекла/дисплея, аккумулятора, разъёмов, диагностика.</div>
+<div class="card__footer">
+<span>Индивидуально</span>
+<a class="card__link" href="tablets.html">Перейти к моделям →</a>
+</div>
+</div>
+</div>
+</div>
+</section> <!-- ТОП-6 ПРОБЛЕМ -->
+<section class="section" id="issues"> <div class="container"> <div class="section__header"> <div class="section__title">Топ-6 частых проблем с телефонами</div> <div class="section__subtitle">Чаще всего к нам обращаются с этими неисправностями.</div> </div> <div class="issues"> <div class="issue"> <div class="issue__title">Разбитый экран</div> <div class="issue__price">от 2 490 ₽</div> <div class="issue__note">Замена дисплейного модуля с гарантией до 90 дней.</div> </div> <div class="issue"> <div class="issue__title">Быстро садится батарея</div> <div class="issue__price">от 1 990 ₽</div> <div class="issue__note">Ставим новые аккумуляторы с сохранением ёмкости.</div> </div> <div class="issue"> <div class="issue__title">Не заряжается смартфон</div> <div class="issue__price">от 1 790 ₽</div> <div class="issue__note">Чистка или замена разъёма зарядки и цепей питания.</div> </div> <div class="issue"> <div class="issue__title">Проблемы со звуком</div> <div class="issue__price">от 1 490 ₽</div> <div class="issue__note">Ремонт динамиков и микрофона, чистка от пыли.</div> </div> <div class="issue"> <div class="issue__title">Не работает камера</div> <div class="issue__price">от 2 290 ₽</div> <div class="issue__note">Замена модуля камеры и шлейфов.</div> </div> <div class="issue"> <div class="issue__title">Не ловит сеть / Wi-Fi</div> <div class="issue__price">от 2 990 ₽</div> <div class="issue__note">Диагностика модуля связи, антенн, прошивки.</div> </div> </div> </div>
+</section> <!-- FOOTER -->
+<footer class="footer" id="contacts"> <div class="container footer__inner"> <div> <div class="logo"> <div class="logo__icon"> <img alt="ReBootFix" src="logo-rebootfix-black.png"/> </div> <div class="logo__text">ReBoot<span>Fix</span></div> </div> <div class="footer__row"> Сервисный центр ReBootFix — ремонт телефонов, планшетов и ноутбуков в Котельниках. </div> <div class="footer__row"> <span class="footer__label">Адрес</span><br/> Московская область, Котельники, микрорайон Парковый, 2<br/> <a href="https://yandex.ru/maps/org/rebootfix/221005671210?si=v9nre5a27yj263veqmcjpbkttr" target="_blank"> Открыть в Яндекс.Картах </a> </div> <div class="footer__row footer__contacts"> <div> <span class="footer__label">Телефон</span><br/> <a href="tel:+79645505252">+7 (964) 550-52-52</a> </div> <div> <span class="footer__label">Мессенджеры</span><br/> <div class="messengers-row"><a aria-label="Telegram" class="messenger" href="https://t.me/ReBootFix" target="_blank"><img alt="Telegram" src="icon-telegram.png"/></a></div><div class="messengers-note">Ответим в Telegram</div><div class="tgk-link"><a class="btn btn--primary" href="https://t.me/ReBootFix" rel="noopener" target="_blank">Наш Telegram канал</a></div> </div> <div> <span class="footer__label">Отзывы</span><br/> <a href="https://yandex.ru/maps/org/rebootfix/221005671210?si=v9nre5a27yj263veqmcjpbkttr" target="_blank"> Читать отзывы на Яндекс.Картах </a> </div> </div> <div class="footer__row" style="margin-top:10px;font-size:12px;color:rgba(255,255,255,0.5);"> © <span id="year"></span> ReBootFix. Не является официальным сервисным центром производителей. </div> </div> <div class="footer__map"> <iframe allowfullscreen="true" frameborder="0" height="260" src="https://yandex.ru/map-widget/v1/?ll=37.874329,55.658332&amp;z=17&amp;pt=37.874329,55.658332,pm2rdm&amp;l=map" style="border:0;" width="100%"> </iframe>
+</div> </div></footer> <script src="device-data.js"></script>
+<script>
+  // year in footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // active chip (visual only)
+  document.querySelectorAll('.chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      document.querySelectorAll('.chip').forEach(function (c) {
+        c.classList.remove('chip--active');
+      });
+      this.classList.add('chip--active');
+    });
+  });
+
+
+  // Android chip dropdown (open on click on the whole chip)
+  function setupAndroidChipDropdown(){
+    var chip = document.getElementById('androidChip');
+    if(!chip) return;
+    var main = chip.querySelector('.chip__main');
+    var toggle = chip.querySelector('.chip__toggle');
+    var menu = chip.querySelector('.chip__menu');
+    if(!main || !toggle || !menu) return;
+
+    function open(){
+      chip.classList.add('is-open');
+      menu.classList.add('is-open');
+      toggle.setAttribute('aria-expanded','true');
+      menu.setAttribute('aria-hidden','false');
+    }
+    function close(){
+      chip.classList.remove('is-open');
+      menu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded','false');
+      menu.setAttribute('aria-hidden','true');
+    }
+    function isOpen(){
+      return menu.classList.contains('is-open');
+    }
+
+    function onTriggerClick(e){
+      if(e.target && e.target.closest && (e.target.closest('.chip__item') || e.target.closest('.chip__menu'))) return;
+      // вместо перехода по ссылке — открываем список брендов
+      e.preventDefault();
+      e.stopPropagation();
+      if(isOpen()) close(); else open();
+    }
+
+    main.addEventListener('click', onTriggerClick);
+    toggle.addEventListener('click', onTriggerClick);
+
+    // кликабельна вся область кнопки
+    chip.addEventListener('click', function(e){
+      if(e.target.closest('.chip__menu') || e.target.closest('.chip__item')) return;
+      onTriggerClick(e);
+    });
+
+    document.addEventListener('click', function(e){
+      if(!chip.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') close();
+    });
+  }
+
+  setupAndroidChipDropdown();
+  // models for calculator (from device-data.js)
+  function getDeviceOptions(type) {
+    const d = window.DEVICE_DATA || {};
+
+    if (type === 'iphone') {
+      return (d.iphone && d.iphone.models || []).map(m => ({ value: m.modelKey, label: m.modelName }));
+    }
+
+    if (type === 'android') {
+      const brands = ['samsung', 'honor', 'xiaomi', 'huawei'];
+      const out = [];
+      brands.forEach(bk => {
+        const b = d[bk];
+        (b && b.models || []).forEach(m => {
+          out.push({ value: m.modelKey, label: (b.brand + ' ' + m.modelName) });
+        });
+      });
+      return out;
+    }
+
+    if (type === 'tablet') {
+      return (d.ipad && d.ipad.models || []).map(m => ({ value: m.modelKey, label: m.modelName }));
+    }
+
+    if (type === 'laptop') {
+      return (d.laptops && d.laptops.models || []).map(m => ({ value: m.modelKey, label: m.modelName }));
+    }
+
+    return [];
+  }
+
+  const orderTypeEl = document.getElementById('order-type');
+  const orderModelEl = document.getElementById('order-model');
+
+  function refillModels() {
+    if (!orderTypeEl || !orderModelEl) return;
+    const opts = getDeviceOptions(orderTypeEl.value);
+    orderModelEl.innerHTML = '';
+    opts.forEach(o => {
+      const op = document.createElement('option');
+      op.value = o.value;
+      op.textContent = o.label;
+      orderModelEl.appendChild(op);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    refillModels();
+    if (orderTypeEl) orderTypeEl.addEventListener('change', refillModels);
+  });
+
+  const priceMap = {
+    iphone: { screen: [4500, 9000], battery: [2500, 4500], port: [2500, 4000], sound: [2000, 3500], other: [2500, 7000] },
+    android: { screen: [3500, 8000], battery: [2000, 4000], port: [2000, 3500], sound: [1800, 3000], other: [2000, 6500] },
+    laptop: { screen: [6000, 14000], battery: [3500, 8000], port: [2500, 6000], sound: [2500, 4500], other: [3000, 12000] },
+    tablet: { screen: [4000, 9000], battery: [2500, 5000], port: [2200, 3800], sound: [2000, 3200], other: [2500, 7000] }
+  };
+
+  const orderPriceText = document.getElementById('order-price-text');
+  const orderContactCard = document.getElementById('order-contact-card');
+  const orderSummary = document.getElementById('order-summary');
+
+  document.getElementById('order-calc-btn')?.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const type = orderTypeEl.value;
+    const model = orderModelEl.value;
+
+    const problemEl = document.getElementById('order-problem');
+    const problem = problemEl.value;
+    const problemText = problemEl.options[problemEl.selectedIndex].text;
+
+    const rangesForType = priceMap[type] || priceMap.iphone;
+    const range = rangesForType[problem] || rangesForType.other;
+    const [min, max] = range;
+
+    orderPriceText.textContent = `Ориентировочная стоимость: от ${min.toLocaleString('ru-RU')} до ${max.toLocaleString('ru-RU')} ₽. Точную цену назовём после диагностики.`;
+    orderContactCard.classList.remove('form-card--disabled');
+    orderSummary.textContent = `Модель: ${model}. Проблема: ${problemText}.`;
+  });
+
+  const orderForm = document.getElementById('order-contact-form');
+  const orderSuccess = document.getElementById('order-success');
+
+  orderForm?.addEventListener('submit', function (e) {
+    e.preventDefault();
+    orderSuccess.style.display = 'block';
+  });
+</script> </body>
+</html>
