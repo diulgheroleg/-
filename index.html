@@ -262,8 +262,22 @@
 
     function isOpen(){ return menu.classList.contains('is-open'); }
 
-    // Tap detection: open on tap, ignore horizontal scroll gesture.
-    var startX=0, startY=0, moved=false;
+    // Tap/scroll detection: open on tap, ignore scroll gesture (mobile chips scroller).
+    var startX=0, startY=0, moved=false, isTouchPointer=false;
+
+    function onPointerDown(e){
+      if(!e) return;
+      isTouchPointer = (e.pointerType === 'touch');
+      if(!isTouchPointer){ moved=false; return; }
+      startX = e.clientX; startY = e.clientY; moved = false;
+    }
+    function onPointerMove(e){
+      if(!isTouchPointer) return;
+      var dx = Math.abs(e.clientX - startX);
+      var dy = Math.abs(e.clientY - startY);
+      if(dx > 10 || dy > 10) moved = true;
+    }
+
     function onTouchStart(e){
       var t = e.touches && e.touches[0];
       if(!t) return;
@@ -277,25 +291,38 @@
       if(dx > 10 || dy > 10) moved = true;
     }
 
+    // Prevent double-toggle (e.g. touchend -> click, or pointerup -> click)
+    var justToggledAt = 0;
+
     function trigger(e){
-      // "moved" is only meaningful for touch gestures (to avoid opening while scrolling).
-      // On desktop/pointer events we must not block opening.
-      var isTouch = e && e.type && e.type.indexOf("touch") === 0;
-      if(isTouch && moved) return;
-      if(!isTouch) moved = false;
+      // Ignore synthetic click fired right after touch/pointer interaction
+      if(e && e.type === 'click' && (Date.now() - justToggledAt) < 350) return;
+
+      var isTouch = !!(e && (String(e.type).indexOf('touch') === 0 || e.pointerType === 'touch'));
+      if(isTouch && moved){ moved = false; return; }
+
       // allow normal clicks inside the menu
       if(e && e.target && e.target.closest && e.target.closest('.chip__item')) return;
+
       if(e && typeof e.preventDefault === 'function') e.preventDefault();
       if(e && typeof e.stopPropagation === 'function') e.stopPropagation();
+
       if(isOpen()) close(); else open();
+      justToggledAt = Date.now();
+      moved = false;
     }
 
-    // Open on any tap on the chip (including the arrow). Prevent link navigation.
-    chip.addEventListener('touchstart', onTouchStart, {passive:true});
-    chip.addEventListener('touchmove', onTouchMove, {passive:true});
-    chip.addEventListener('touchend', trigger, {passive:false});
-    chip.addEventListener('pointerup', trigger, {passive:false});
-    chip.addEventListener('click', trigger, {passive:false});
+    // Open on any tap/click on the chip (including the arrow). Prevent link navigation.
+    if('PointerEvent' in window){
+      chip.addEventListener('pointerdown', onPointerDown, {passive:true});
+      chip.addEventListener('pointermove', onPointerMove, {passive:true});
+      chip.addEventListener('pointerup', trigger, {passive:false});
+    } else {
+      chip.addEventListener('touchstart', onTouchStart, {passive:true});
+      chip.addEventListener('touchmove', onTouchMove, {passive:true});
+      chip.addEventListener('touchend', trigger, {passive:false});
+      chip.addEventListener('click', trigger, {passive:false});
+    }
 
     // Close on outside tap/click
     document.addEventListener('click', function(e){

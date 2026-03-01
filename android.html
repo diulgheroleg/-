@@ -23,7 +23,7 @@
     .model-btn {text-decoration:none;font-weight:700;color:var(--accent);}
   
     .brand-filter{position:relative;display:flex;align-items:center;justify-content:flex-end;}
-    .brand-filter__btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#fff;font-weight:700;cursor:pointer;}
+    .brand-filter__btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#fff;font-weight:700;cursor:pointer;}
     .brand-filter__menu{position:absolute;right:0;top:calc(100% + 8px);min-width:220px;padding:8px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:rgba(15,15,15,.96);box-shadow:0 18px 40px rgba(0,0,0,.45);display:none;z-index:50;}
     .brand-filter__menu.is-open{display:block;}
     .brand-filter__item{width:100%;text-align:left;padding:10px 12px;border-radius:12px;border:0;background:transparent;color:#fff;font-weight:700;cursor:pointer;}
@@ -150,13 +150,26 @@
     setBrand(initial);
   });
 
-  if(btn){
-    btn.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      toggleMenu();
-    });
+  // Быстрый отклик на мобильных: pointer/touch без задержки, плюс fallback на click (клавиатура/старые браузеры)
+let justToggledAt = 0;
+function triggerToggle(e){
+  if(e && e.type === 'click' && (Date.now() - justToggledAt) < 350) return;
+  if(e && typeof e.preventDefault === 'function') e.preventDefault();
+  if(e && typeof e.stopPropagation === 'function') e.stopPropagation();
+  toggleMenu();
+  justToggledAt = Date.now();
+}
+
+if(btn){
+  if('PointerEvent' in window){
+    btn.addEventListener('pointerup', triggerToggle, {passive:false});
+    // click оставляем для клавиатуры/десктопа, но игнорируем "синтетический" click сразу после pointerup
+    btn.addEventListener('click', triggerToggle, {passive:false});
+  } else {
+    btn.addEventListener('touchend', triggerToggle, {passive:false});
+    btn.addEventListener('click', triggerToggle, {passive:false});
   }
+}
 
   if(menu){
     menu.addEventListener('click', function(e){
