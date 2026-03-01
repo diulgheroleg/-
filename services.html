@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Все услуги</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <!-- твой текущий хедер -->
+</header>
+
+<main class="page">
+  <div class="container">
+
+    <h1 id="model-title">Все услуги</h1>
+    <p class="subtitle">
+      Полный список услуг и цен для выбранного устройства
+    </p>
+
+    <div id="services-list" class="services-grid">
+      <!-- сюда подставятся цены -->
+    </div>
+
+  </div>
+</main>
+
+<script>
+const prices = {
+  "ipad-9-7": [
+    { name: "Диагностика", price: "Бесплатно" },
+    { name: "Замена экрана", price: "от 6 900 ₽" },
+    { name: "Замена аккумулятора", price: "от 3 900 ₽" }
+  ],
+  "ipad-10-2": [
+    { name: "Диагностика", price: "Бесплатно" },
+    { name: "Замена экрана", price: "от 7 900 ₽" },
+    { name: "Замена аккумулятора", price: "от 4 200 ₽" }
+  ],
+  "galaxy-tab-s9": [
+    { name: "Диагностика", price: "Бесплатно" },
+    { name: "Замена экрана", price: "от 11 900 ₽" },
+    { name: "Чистка после влаги", price: "от 2 900 ₽" }
+  ]
+};
+
+const params = new URLSearchParams(window.location.search);
+const model = params.get("model");
+
+const titleEl = document.getElementById("model-title");
+const listEl = document.getElementById("services-list");
+
+if (prices[model]) {
+  titleEl.textContent = "Все услуги для " + model.replace(/-/g, " ").toUpperCase();
+
+  prices[model].forEach(item => {
+    const card = document.createElement("div");
+    card.className = "service-card";
+    card.innerHTML = `
+      <div class="service-name">${item.name}</div>
+      <div class="service-price">${item.price}</div>
+    `;
+    listEl.appendChild(card);
+  });
+} else {
+  titleEl.textContent = "Услуги не найдены";
+  listEl.innerHTML = "<p>Для этого устройства пока нет прайса.</p>";
+}
+</script>
+
+</body>
+</html>
