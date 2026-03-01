@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>ReBootFix — ремонт смартфонов Android</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/><link href="style_edited.css" rel="stylesheet"/>
+<link href="modal.css" rel="stylesheet"/>
+
+
+<style>
+    .models-page {padding: 28px 0 60px;}
+    .models-header {display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px;}
+    .models-title {font-size:28px;font-weight:800;}
+    .models-sub {opacity:.85;margin-top:6px;max-width:720px;}
+    .models-card {margin-top:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);border-radius:22px;padding:18px;}
+    .model-list {list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:12px;}
+    .model-item {display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:16px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);}
+    .model-btn {text-decoration:none;font-weight:700;color:var(--accent);}
+  </style>
+
+</head>
+<body class="page">
+<header class="header">
+<div class="container header__inner">
+<a class="logo" href="index.html">
+<div class="logo__icon"><img alt="ReBootFix" src="logo-rebootfix-black.png"/></div>
+<div class="logo__text">ReBoot<span>Fix</span></div>
+</a>
+<div class="header__actions">
+<a class="btn btn--primary" href="index.html#order">Связаться / консультация</a>
+<a class="btn btn--primary" href="index.html">Вернуться назад</a>
+</div>
+</div>
+</header>
+<main class="models-page">
+<div class="container">
+<div class="models-header">
+  <div>
+    <div class="models-title" id="pageTitle">Ремонт Samsung</div>
+  </div>
+
+</div>
+
+<div class="cards-grid" id="modelsGrid"></div>
+
+<div class="models-actions" style="margin-top:18px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+  <a class="btn btn--primary" href="index.html">Вернуться назад</a>
+</div>
+
+</div>
+</main>
+
+<footer>
+  ReBootFix — ремонт смартфонов Android в Мытищах и Котельниках. Цены на сайте ориентировочные.
+</footer>
+<script>
+(function(){
+  const btn = document.getElementById('brandFilterBtn');
+  const menu = document.getElementById('brandFilterMenu');
+  const title = document.getElementById('brandTitle');
+  const params = new URLSearchParams(window.location.search);
+  let current = params.get('brand') || 'samsung';
+  if(!['samsung','honor','xiaomi','huawei'].includes(current)) current = 'samsung';
+
+  function setBrand(brandKey){
+    current = brandKey;
+    const nice = (brandKey === 'samsung') ? 'Samsung' :
+                 (brandKey === 'honor') ? 'Honor' :
+                 (brandKey === 'xiaomi') ? 'Xiaomi' : 'Huawei';
+    if(title) title.textContent = 'Модели ' + nice;
+    if(window.renderModelCards && window.getBrandModels){
+      renderModelCards('modelsGrid', getBrandModels(brandKey), {previewLimit: 3});
+    }
+    if(btn) btn.firstChild.textContent = 'Ремонт ' + nice + ' ';
+  }
+
+  function openMenu(){
+    if(!menu) return;
+    menu.classList.add('is-open');
+    menu.setAttribute('aria-hidden','false');
+  }
+  function closeMenu(){
+    if(!menu) return;
+    menu.classList.remove('is-open');
+    menu.setAttribute('aria-hidden','true');
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    setBrand(current);
+  });
+
+  if(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(menu && menu.classList.contains('is-open')) closeMenu(); else openMenu();
+    });
+  }
+  if(menu){
+    menu.addEventListener('click', function(e){
+      const item = e.target.closest('[data-brand]');
+      if(!item) return;
+      setBrand(item.getAttribute('data-brand'));
+      closeMenu();
+    });
+  }
+  document.addEventListener('click', closeMenu);
+})();
+</script>
+
+<!-- Modal: услуги выбранной модели -->
+<div class="services-modal" id="servicesModal" aria-hidden="true">
+  <div class="services-modal__backdrop"></div>
+  <div class="services-modal__panel" role="dialog" aria-modal="true">
+    <div class="services-modal__head">
+      <div>
+        <div class="services-modal__title" data-modal-title>Услуги</div>
+        <div class="services-modal__sub" data-modal-sub></div>
+      </div>
+      <button class="services-modal__close" type="button" data-modal-close aria-label="Закрыть">✕</button>
+    </div>
+    <div class="services-modal__body">
+      <div class="services-list" data-modal-list></div>
+    </div>
+  </div>
+</div>
+
+<script src="device-data.js"></script>
+<script src="models-render.js"></script>
+<script src="services-modal.js"></script>
+</body>
+</html>
