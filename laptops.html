@@ -33,21 +33,12 @@
       </div>
     </div>
 
-    <h2 class="models-section-title">Услуги</h2>
-    <div class="services-table">
-      <div class="services-table__head">
-        <div>Услуга</div>
-        <div>Цена</div>
-      </div>
-      <div id="inlineServices"></div>
-    </div>
-
-    <section class="find-device">
+    <section class="find-device" style="margin-top:16px;">
       <div class="find-device__text">
-        <div class="find-device__title">Нужна другая услуга?</div>
-        <div class="find-device__sub">Напишите в Telegram — уточним модель ноутбука и проблему и подскажем ориентировочную стоимость.</div>
+        <div class="find-device__title">По ноутбукам отвечаем в Telegram</div>
+        <div class="find-device__sub">Напишите модель ноутбука и проблему — мастер ответит и сориентирует по стоимости.</div>
       </div>
-      <a class="btn btn--primary" href="https://t.me/ReBootFix" target="_blank" rel="noopener">Узнать точную стоимость</a>
+      <a class="btn btn--primary" href="https://t.me/ReBootFixx" target="_blank" rel="noopener">Написать в Telegram</a>
     </section>
 
     <div class="models-actions" style="margin-top:18px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
@@ -60,49 +51,5 @@
 <footer>
   ReBootFix — ремонт ноутбуков Windows и Windows в Мытищах и Котельниках. Цены на сайте ориентировочные.
 </footer>
-
-
-<script>
-  function renderLaptopInlineServices(){
-    const host = document.getElementById('inlineServices');
-    if(!host || !window.DEVICE_DATA) return;
-
-    const models = (window.DEVICE_DATA.laptops && window.DEVICE_DATA.laptops.models) || [];
-    const services = (models[0] && models[0].services) ? models[0].services : [];
-
-    host.innerHTML = (services || []).map(function(s){
-      return (
-        '<div class="services-table__row">' +
-          '<div class="services-table__name">' + (s.name || '') + '</div>' +
-          '<div class="services-table__price"><span>' + (s.price || '') + '</span></div>' +
-        '</div>'
-      );
-    }).join('');
-  }
-
-  document.addEventListener('DOMContentLoaded', function(){
-    renderLaptopInlineServices();
-  });
-</script>
-
-<!-- Modal: услуги выбранной модели -->
-<div class="services-modal" id="servicesModal" aria-hidden="true">
-  <div class="services-modal__backdrop"></div>
-  <div class="services-modal__panel" role="dialog" aria-modal="true">
-    <div class="services-modal__head">
-      <div>
-        <div class="services-modal__title" data-modal-title>Услуги</div>
-        <div class="services-modal__sub" data-modal-sub></div>
-      </div>
-      <button class="services-modal__close" type="button" data-modal-close aria-label="Закрыть">✕</button>
-    </div>
-    <div class="services-modal__body">
-      <div class="services-list" data-modal-list></div>
-    </div>
-  </div>
-</div>
-
-<script src="device-data.js"></script>
-<script src="services-modal.js"></script>
 </body>
 </html>

@@ -28,7 +28,7 @@
       padding: 0 20px;
     }
 
-    .page { min-height: 100vh; }
+    .page { min-height: 100vh; padding-bottom: env(safe-area-inset-bottom); }
 
     /* HEADER */
 
@@ -240,7 +240,7 @@
       border: 1px solid rgba(255,255,255,.10);
       box-shadow: 0 18px 40px rgba(0,0,0,.45);
       display:none;
-      z-index: 50;
+      z-index: 999;
     }
     .chip--dropdown .chip__menu.is-open{ display:block; }
     .chip--dropdown .chip__item{
@@ -1609,11 +1609,20 @@ input, select, textarea { font-size: 16px; }
 
 /* Header / nav */
 @media (max-width: 900px){
-  .header { position: sticky; top: 0; z-index: 50; }
+  /* Telegram/iOS webview safe area + keep header above everything */
+  .header { position: sticky; top: 0; z-index: 1000; padding-top: env(safe-area-inset-top); }
   .header__inner { gap: 10px; }
   .header__logo-img { height: 42px; width: auto; }
   .nav { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .nav::-webkit-scrollbar { display: none; }
+}
+
+/* On mobile: open Android dropdown ABOVE the chips (so it doesn't go under hero card) */
+@media (max-width: 640px){
+  .chip--dropdown .chip__menu{
+    top: auto;
+    bottom: calc(100% + 10px);
+  }
 }
 
 /* Hero */

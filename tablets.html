@@ -33,15 +33,12 @@
       </div>
     </div>
 
-    <h2 class="models-section-title">Apple iPad</h2>
-    <div class="cards-grid" id="modelsGrid"></div>
-
-    <section class="find-device">
+    <section class="find-device" style="margin-top:16px;">
       <div class="find-device__text">
-        <div class="find-device__title">Не нашли свой планшет?</div>
-        <div class="find-device__sub">Напишите в Telegram — уточним модель и проблему и подскажем ориентировочную стоимость.</div>
+        <div class="find-device__title">По планшетам отвечаем в Telegram</div>
+        <div class="find-device__sub">Напишите модель планшета и проблему — мастер ответит и сориентирует по стоимости.</div>
       </div>
-      <a class="btn btn--primary" href="https://t.me/ReBootFix" target="_blank" rel="noopener">Узнать точную стоимость</a>
+      <a class="btn btn--primary" href="https://t.me/ReBootFixx" target="_blank" rel="noopener">Написать в Telegram</a>
     </section>
 
 <div class="models-actions" style="margin-top:18px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
@@ -50,36 +47,5 @@
 </div>
   </div>
 </main>
-
-
-<script>
-  document.addEventListener('DOMContentLoaded', function(){
-    if(window.renderModelCards && window.getBrandModels){
-      renderModelCards('modelsGrid', getBrandModels('ipad'), {previewLimit: 3, maxModels: 20});
-    }
-
-  });
-</script>
-
-<!-- Modal: услуги выбранной модели -->
-<div class="services-modal" id="servicesModal" aria-hidden="true">
-  <div class="services-modal__backdrop"></div>
-  <div class="services-modal__panel" role="dialog" aria-modal="true">
-    <div class="services-modal__head">
-      <div>
-        <div class="services-modal__title" data-modal-title>Услуги</div>
-        <div class="services-modal__sub" data-modal-sub></div>
-      </div>
-      <button class="services-modal__close" type="button" data-modal-close aria-label="Закрыть">✕</button>
-    </div>
-    <div class="services-modal__body">
-      <div class="services-list" data-modal-list></div>
-    </div>
-  </div>
-</div>
-
-<script src="device-data.js"></script>
-<script src="models-render.js"></script>
-<script src="services-modal.js"></script>
 </body>
 </html>
