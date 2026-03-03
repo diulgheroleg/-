@@ -28,3 +28,4 @@ window.DEVICE_DATA = {"samsung": {"brand": "Samsung", "models": [{"modelKey": "s
     });
   });
 })();
+
