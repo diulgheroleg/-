@@ -1,4 +1,6 @@
-:{$PORT} {
-  root * /app
-  file_server
-}
+:{$PORT}
+
+root * /app
+file_server
+encode gzip
+try_files {path} /index.html
