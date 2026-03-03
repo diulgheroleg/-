@@ -1,115 +1,119 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta charset="utf-8"/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<title>ReBootFix — ремонт iPhone</title>
-<meta content="width=device-width, initial-scale=1" name="viewport"/><link href="style_edited.css" rel="stylesheet"/>
-<link href="modal.css" rel="stylesheet"/>
-
-
-<style>
-    .models-page {padding: 28px 0 60px;}
-    .models-header {display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px;}
-    .models-title {font-size:28px;font-weight:800;}
-    .models-sub {opacity:.85;margin-top:6px;max-width:720px;}
-    .models-card {margin-top:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);border-radius:22px;padding:18px;}
-    .model-list {list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:12px;}
-    .model-item {display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:16px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);}
-    .model-btn {text-decoration:none;font-weight:700;color:var(--accent);}
-  </style>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ремонт iPhone — ReBootFix</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style_edited.css" />
 </head>
-<body class="page">
-<header class="header">
-<div class="container header__inner">
-<a class="logo" href="index.html">
-<div class="logo__icon"><img alt="ReBootFix" src="logo-rebootfix-black.png"/></div>
-<div class="logo__text">ReBoot<span>Fix</span></div>
-</a>
-<div class="header__actions">
-<a class="btn btn--primary" href="https://t.me/ReBootFixx" target="_blank" rel="noopener">Консультация</a>
-<a class="btn btn--primary" href="index.html">Вернуться назад</a>
-</div>
-</div>
-</header>
-<main class="models-page">
-<div class="container">
-<div class="models-header">
-  <div>
-    <div class="models-title">Ремонт iPhone</div>
+<body class="page" data-page="iphone">
+  <header class="header">
+    <div class="container header__inner">
+      <a class="logo" href="index.html">
+        <div class="logo__icon"><img alt="ReBootFix" src="logo-rebootfix-black.png" class="header__logo-img"/></div>
+        <div class="logo__text">ReBoot<span>Fix</span></div>
+      </a>
+      <nav class="nav">
+        <a class="nav__link" href="index.html#order">Онлайн-заказ</a>
+        <a class="nav__link" href="android.html">Android</a>
+        <a class="nav__link" href="laptops.html">Ноутбуки</a>
+        <a class="nav__link" href="news.html">Новости</a>
+        <a class="nav__link" href="index.html#contacts">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="section__header">
+        <div class="section__title">Доступные цены на ремонт iPhone</div>
+        <div class="section__subtitle">Выберите модель — покажем популярные услуги и актуальные цены.</div>
+      </div>
+
+      <div class="catalog">
+  <div class="tabs-row" id="brandTabs"></div>
+  <div class="models-row" id="modelRow"></div>
+  <div class="models-row models-row--more" id="modelRowMore" style="display:none;"></div>
+
+  <div class="model-head">
+    <div class="model-head__title" id="modelTitle"></div>
+    <div class="model-head__meta">Стоимость работы (без детали)</div>
   </div>
 
-</div>
+  <div class="svc-table" id="servicesGrid"></div>
 
-<div class="cards-grid" id="modelsGrid"></div>
+  <div style="display:flex;justify-content:center;margin-top:12px;">
+    <button class="btn btn--outline" id="showAllPrices" type="button">Посмотреть все услуги</button>
+  </div>
+</div>
 
 <section class="find-device">
-  <div class="find-device__text">
-    <div class="find-device__title">Не нашли своё устройство?</div>
-    <div class="find-device__sub">Напишите в Telegram — уточним модель и проблему и подскажем ориентировочную стоимость.</div>
-  </div>
-  <a class="btn btn--primary" href="https://t.me/ReBootFixx" target="_blank" rel="noopener">Узнать точную стоимость</a>
-</section>
+        <div class="find-device__inner">
+          <div class="find-device__left">
+            <div class="find-device__title">Не нашли свою модель?</div>
+            <div class="find-device__sub">Напишите в Telegram — уточним модель и проблему и подскажем ориентировочную стоимость.</div>
+          </div>
+          <div class="find-device__actions">
+            <a class="btn btn--primary" href="https://t.me/ReBootFixx" target="_blank" rel="noopener">Перейти в Telegram</a>
+            <a class="btn btn--outline" href="https://t.me/ReBootFix" target="_blank" rel="noopener">Наш Telegram‑канал</a>
+          </div>
+        </div>
+      </section>
 
-<section class="trust-card" aria-label="Отзывы и рейтинг">
-  <div>
-    <div class="trust-card__title">Отзывы и рейтинг в Яндексе</div>
-    <div class="trust-card__sub">Посмотрите рейтинг и отзывы перед обращением — это занимает минуту.</div>
-    <div class="trust-badges">
-      <iframe title="Рейтинг в Яндексе" src="https://yandex.ru/sprav/widget/rating-badge/221005671210?type=rating" width="150" height="50" frameborder="0" loading="lazy"></iframe>
-      <iframe title="Награда Яндекса" src="https://yandex.ru/sprav/widget/rating-badge/221005671210?type=award" width="150" height="50" frameborder="0" loading="lazy"></iframe>
-      <iframe title="Альтернативный бейдж" src="https://yandex.ru/sprav/widget/rating-badge/221005671210?type=alt" width="150" height="50" frameborder="0" loading="lazy"></iframe>
-    </div>
-  </div>
-  <div class="trust-card__right">
-    <a class="btn btn--outline" href="https://yandex.ru/maps/org/rebootfix/221005671210?si=v9nre5a27yj263veqmcjpbkttr" target="_blank" rel="noopener">Читать отзывы</a>
-    <a class="btn btn--primary" href="https://t.me/ReBootFixx" target="_blank" rel="noopener">Консультация в Telegram</a>
-  </div>
-</section>
+      <section class="trust-section" style="margin-top:14px;">
+        <div class="trust-card">
+          <div>
+            <div class="trust-card__title">Отзывы и рейтинг в Яндексе</div>
+            <div class="trust-card__sub">Посмотрите рейтинг и отзывы перед обращением — это занимает минуту.</div>
+            <div class="trust-badges">
+              <iframe title="Рейтинг в Яндексе" src="https://yandex.ru/sprav/widget/rating-badge/221005671210?type=rating" width="150" height="50" frameborder="0" loading="lazy"></iframe>
+              <iframe title="Награда Яндекса" src="https://yandex.ru/sprav/widget/rating-badge/221005671210?type=award" width="150" height="50" frameborder="0" loading="lazy"></iframe>
+              <iframe title="Альтернативный бейдж" src="https://yandex.ru/sprav/widget/rating-badge/221005671210?type=alt" width="150" height="50" frameborder="0" loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="trust-card__actions">
+            <a class="btn btn--outline" href="https://yandex.ru/maps/org/rebootfix/221005671210" target="_blank" rel="noopener">Читать отзывы</a></div>
+        </div>
+      </section>
 
-</section>
+      <section class="section" style="padding-top:10px;">
+        <div class="section__header">
+          <div class="section__title">Новости и советы</div>
+          <div class="section__subtitle">Чтобы страница не выглядела пустой — добавили полезные материалы.</div>
+        </div>
+        <div class="news-grid" id="newsInPage"></div>
+      </section>
 
-<div class="models-actions" style="margin-top:18px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
-  <a class="btn btn--primary" href="https://t.me/ReBootFixx" target="_blank" rel="noopener">Консультация</a>
-  <a class="btn btn--primary" href="index.html">Вернуться назад</a>
-</div>
-
-</div>
-</main>
-
-<script>
-  // Render iPhone models as cards (sorted DESC)
-  document.addEventListener('DOMContentLoaded', function(){
-    if(window.renderModelCards && window.getBrandModels){
-      renderModelCards('modelsGrid', getBrandModels('iphone'), {previewLimit: 3, maxModels: 20});
-    }
-  });
-</script>
-
-<!-- Modal: услуги выбранной модели -->
-<div class="services-modal" id="servicesModal" aria-hidden="true">
-  <div class="services-modal__backdrop"></div>
-  <div class="services-modal__panel" role="dialog" aria-modal="true">
-    <div class="services-modal__head">
-      <div>
-        <div class="services-modal__title" data-modal-title>Услуги</div>
-        <div class="services-modal__sub" data-modal-sub></div>
+      <div class="page-bottom-actions" style="margin-top:14px;">
+        <a class="btn btn--primary" href="https://t.me/ReBootFixx" target="_blank" rel="noopener">Связаться с нами</a>
+        <a class="btn btn--primary" href="index.html">Вернуться назад</a>
       </div>
-      <button class="services-modal__close" type="button" data-modal-close aria-label="Закрыть">✕</button>
     </div>
-    <div class="services-modal__body">
-      <div class="services-list" data-modal-list></div>
+  </main>
+
+  <!-- Services modal (all prices) -->
+  <div class="services-modal" id="servicesModal" aria-hidden="true">
+    <div class="services-modal__backdrop"></div>
+    <div class="services-modal__panel" role="dialog" aria-modal="true">
+      <div class="services-modal__head">
+        <div>
+          <div class="services-modal__title" data-modal-title>Услуги</div>
+          <div class="services-modal__sub" data-modal-sub>Цены и услуги</div>
+        </div>
+        <button class="services-modal__close" type="button" data-modal-close aria-label="Закрыть">×</button>
+      </div>
+      <div class="services-modal__list" data-modal-list></div>
     </div>
   </div>
-</div>
 
-<script src="device-data.js"></script>
-<script src="models-render.js"></script>
-<script src="services-modal.js"></script>
+  <script src="device-data.js"></script>
+  <script src="news.js"></script>
+  <script src="services-modal.js"></script>
+  <script src="models-v2.js"></script>
 </body>
 </html>

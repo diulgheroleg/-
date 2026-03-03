@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Новости — ReBootFix</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style_edited.css" />
+</head>
+<body class="page">
+  <header class="header">
+    <div class="container header__inner">
+      <a class="logo" href="index.html">
+        <div class="logo__icon"><img alt="ReBootFix" src="logo-rebootfix-black.png" class="header__logo-img"/></div>
+        <div class="logo__text">ReBoot<span>Fix</span></div>
+      </a>
+      <nav class="nav">
+        <a class="nav__link" href="index.html#order">Онлайн-заказ</a>
+        <a class="nav__link" href="iphone.html">iPhone</a>
+        <a class="nav__link" href="android.html">Android</a>
+        <a class="nav__link" href="index.html#contacts">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <a class="btn btn--primary" href="https://t.me/ReBootFixx" rel="noopener" target="_blank">Консультация в Telegram</a>
+        </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="section__header">
+        <div class="section__title">Новости</div>
+        <div class="section__subtitle">Обновления сервиса, акции и полезные советы.</div>
+      </div>
+
+      <div id="newsList" style="display:grid;gap:14px;"></div>
+
+      <div style="margin-top:18px;display:flex;justify-content:center;">
+        <a class="btn btn--outline" href="index.html">На главную</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="news.js"></script>
+  <script>
+    window.renderNewsPage && window.renderNewsPage();
+  </script>
+</body>
+</html>
